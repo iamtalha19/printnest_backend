@@ -1,13 +1,19 @@
-﻿# 🖨️ PrintNest — Modern Print-on-Demand E-Commerce Store
+﻿<h1 align="center">🖨️ PrintNest</h1>
+<p align="center">
+  <strong>Modern Print-on-Demand E-Commerce Platform</strong><br/>
+  Full-stack Next.js store with admin panel, AI descriptions, Stripe & PayPal payments, and email order notifications
+</p>
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black?logo=next.js)](https://nextjs.org)
-[![React](https://img.shields.io/badge/React-19.2.3-blue?logo=react)](https://reactjs.org)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)](https://typescriptlang.org)
-[![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-green?logo=mongodb)](https://mongoosejs.com)
-[![Redux Toolkit](https://img.shields.io/badge/Redux_Toolkit-2.11-purple?logo=redux)](https://redux-toolkit.js.org)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.x-cyan?logo=tailwindcss)](https://tailwindcss.com)
-
-A modern, full-stack e-commerce platform for custom print-on-demand products. Features a complete admin panel, MongoDB database, AI-powered product descriptions, product reviews, and email order notifications.
+<p align="center">
+  <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Next.js-16.1.6-black?logo=next.js" alt="Next.js"/></a>
+  <a href="https://reactjs.org"><img src="https://img.shields.io/badge/React-19.2.3-61DAFB?logo=react&logoColor=black" alt="React"/></a>
+  <a href="https://typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white" alt="TypeScript"/></a>
+  <a href="https://mongoosejs.com"><img src="https://img.shields.io/badge/MongoDB-Mongoose-47A248?logo=mongodb&logoColor=white" alt="MongoDB"/></a>
+  <a href="https://redux-toolkit.js.org"><img src="https://img.shields.io/badge/Redux_Toolkit-2.x-764ABC?logo=redux&logoColor=white" alt="Redux Toolkit"/></a>
+  <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Tailwind_CSS-4.x-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS"/></a>
+  <a href="https://stripe.com"><img src="https://img.shields.io/badge/Stripe-Payment-635BFF?logo=stripe&logoColor=white" alt="Stripe"/></a>
+  <a href="https://paypal.com"><img src="https://img.shields.io/badge/PayPal-Payment-00457C?logo=paypal&logoColor=white" alt="PayPal"/></a>
+</p>
 
 ---
 
@@ -22,7 +28,13 @@ A modern, full-stack e-commerce platform for custom print-on-demand products. Fe
 - **Product Review System** with ratings and comments
 - **Checkout** with billing, payment selection, and order confirmation
 
-### 🔐 Authentication & Users
+### � Payments
+
+- **Stripe** — card payments via Stripe Checkout Sessions
+- **PayPal** — PayPal Orders API (sandbox) with redirect-based flow
+- Both payment methods redirect to `/thank-you` on success
+
+### �🔐 Authentication & Users
 
 - **Sign Up / Login** with bcrypt password hashing
 - **JWT Authentication** via HTTP-only cookies
@@ -34,6 +46,7 @@ A modern, full-stack e-commerce platform for custom print-on-demand products. Fe
 
 - **Dashboard** with charts: revenue, orders, top products, user stats
 - **Product Management** — add, edit, delete products
+- **Category Management** — manage product categories (slug + image)
 - **Order Management** — view and update order statuses
 - **User Management** — view, promote, delete users
 - **Review Moderation** — view and manage all reviews
@@ -55,15 +68,15 @@ A modern, full-stack e-commerce platform for custom print-on-demand products. Fe
 
 ## 📋 Table of Contents
 
-- [Tech Stack](#-tech-stack)
+- [Tech Stack](#%EF%B8%8F-tech-stack)
 - [Package Installation](#-package-installation-commands)
 - [Project Structure](#-project-structure)
 - [Getting Started](#-getting-started)
 - [Environment Variables](#-environment-variables)
 - [API Routes](#-api-routes)
-- [Database & Models](#-database--models)
+- [Database & Models](#%EF%B8%8F-database--models)
 - [Redux Store](#-redux-store)
-- [Admin Panel](#-admin-panel)
+- [Admin Panel](#%EF%B8%8F-admin-panel-1)
 - [Pages & Routes](#-pages--routes)
 - [Deployment](#-deployment)
 
@@ -84,6 +97,7 @@ A modern, full-stack e-commerce platform for custom print-on-demand products. Fe
 | **Authentication**   | JWT + bcryptjs               |
 | **Email**            | Nodemailer (Gmail SMTP)      |
 | **AI**               | Groq API (Llama 3.1 8B)      |
+| **Payments**         | Stripe + PayPal (REST API)   |
 | **Utilities**        | clsx, tailwind-merge, cookie |
 
 ---
@@ -99,65 +113,75 @@ npm install
 ### Production Dependencies
 
 ```bash
-# Install all production deps at once
-npm install @google/generative-ai @reduxjs/toolkit bcryptjs clsx cookie framer-motion jsonwebtoken lucide-react mongoose next nodemailer react react-dom react-redux tailwind-merge
+npm install @google/generative-ai @reduxjs/toolkit @stripe/stripe-js bcryptjs clsx cookie framer-motion jsonwebtoken lucide-react mongoose next nodemailer react react-dom react-redux stripe tailwind-merge
 ```
 
-Or install individually:
+<details>
+<summary>Install individually by category</summary>
 
 #### Framework & Core
 
 ```bash
-npm install next@16.1.6          # Next.js framework
-npm install react@19.2.3         # React library
-npm install react-dom@19.2.3     # React DOM renderer
+npm install next@16.1.6
+npm install react@19.2.3
+npm install react-dom@19.2.3
 ```
 
 #### Database
 
 ```bash
-npm install mongoose@^9.2.1      # MongoDB ODM
+npm install mongoose@^9.2.1
 ```
 
 #### State Management
 
 ```bash
-npm install @reduxjs/toolkit@^2.11.2   # Redux Toolkit
-npm install react-redux@^9.2.0         # React bindings for Redux
+npm install @reduxjs/toolkit@^2.11.2
+npm install react-redux@^9.2.0
 ```
 
 #### Authentication & Security
 
 ```bash
-npm install bcryptjs@^3.0.3            # Password hashing
-npm install jsonwebtoken@^9.0.3        # JWT tokens
-npm install cookie@^1.1.1              # Cookie parsing
+npm install bcryptjs@^3.0.3
+npm install jsonwebtoken@^9.0.3
+npm install cookie@^1.1.1
+```
+
+#### Payments
+
+```bash
+npm install stripe@^20.4.0           # Stripe server SDK
+npm install @stripe/stripe-js@^8.8.0  # Stripe client SDK
+# PayPal uses the REST API via fetch — no package needed
 ```
 
 #### UI & Styling
 
 ```bash
-npm install framer-motion@^12.30.0     # Animations
-npm install lucide-react@^0.563.0      # Icons
-npm install clsx@^2.1.1                # Conditional classNames
-npm install tailwind-merge@^3.4.0      # Tailwind class merging
+npm install framer-motion@^12.30.0
+npm install lucide-react@^0.563.0
+npm install clsx@^2.1.1
+npm install tailwind-merge@^3.4.0
 ```
 
 #### Email & AI
 
 ```bash
-npm install nodemailer@^7.0.13         # Email sending (SMTP)
-npm install @google/generative-ai@^0.24.1  # Google AI SDK (installed but Groq used via fetch)
+npm install nodemailer@^7.0.13
+npm install @google/generative-ai@^0.24.1
 ```
+
+</details>
 
 ### Development Dependencies
 
 ```bash
-# Install all dev deps at once
 npm install -D @tailwindcss/postcss @types/bcryptjs @types/cookie @types/jsonwebtoken @types/node @types/nodemailer @types/react @types/react-dom babel-plugin-react-compiler eslint eslint-config-next tailwindcss typescript
 ```
 
-Or install individually:
+<details>
+<summary>Install individually by category</summary>
 
 #### TypeScript & Types
 
@@ -182,12 +206,15 @@ npm install -D eslint-config-next@16.1.6
 npm install -D babel-plugin-react-compiler@1.0.0
 ```
 
+</details>
+
 ### Package Purposes
 
 | Package                 | Purpose                                           |
 | ----------------------- | ------------------------------------------------- |
 | `@google/generative-ai` | Google AI SDK (installed alongside Groq)          |
 | `@reduxjs/toolkit`      | Simplified Redux with createSlice, configureStore |
+| `@stripe/stripe-js`     | Stripe client-side SDK (redirect to Checkout)     |
 | `bcryptjs`              | Secure password hashing                           |
 | `clsx`                  | Conditional className utility                     |
 | `cookie`                | HTTP cookie parsing                               |
@@ -199,6 +226,7 @@ npm install -D babel-plugin-react-compiler@1.0.0
 | `nodemailer`            | Send order confirmation emails                    |
 | `react` / `react-dom`   | UI library and DOM renderer                       |
 | `react-redux`           | Redux bindings for React                          |
+| `stripe`                | Stripe server SDK for creating Checkout Sessions  |
 | `tailwind-merge`        | Merge Tailwind classes without conflicts          |
 | `tailwindcss`           | Utility-first CSS framework                       |
 | `typescript`            | Static typing for JavaScript                      |
@@ -214,6 +242,8 @@ printnest/
 │   │   ├── api/                          # API Routes
 │   │   │   ├── admin/                    # Admin-only endpoints
 │   │   │   │   ├── ai-description/       # POST - AI product description (Groq)
+│   │   │   │   ├── categories/           # GET/POST - Manage categories
+│   │   │   │   │   └── [id]/             # DELETE/PATCH - Edit or delete category
 │   │   │   │   ├── orders/               # GET/PATCH - Manage all orders
 │   │   │   │   ├── products/             # GET/POST/DELETE - Manage products
 │   │   │   │   ├── stats/                # GET - Dashboard analytics
@@ -223,11 +253,15 @@ printnest/
 │   │   │   │   ├── logout/route.ts
 │   │   │   │   ├── me/route.ts
 │   │   │   │   └── signup/route.ts
+│   │   │   ├── paypal/
+│   │   │   │   └── checkout/route.ts     # POST - Create PayPal order
 │   │   │   ├── public/                   # Public data endpoints
 │   │   │   │   ├── content/route.ts      # db.json content
 │   │   │   │   ├── orders/route.ts       # User orders
 │   │   │   │   ├── place-order/route.ts  # Submit order + email
 │   │   │   │   └── reviews/              # GET/POST reviews
+│   │   │   ├── stripe/
+│   │   │   │   └── checkout/route.ts     # POST - Create Stripe Checkout Session
 │   │   │   └── upload/route.ts           # Image upload
 │   │   │
 │   │   ├── admin/                        # Admin pages
@@ -240,7 +274,7 @@ printnest/
 │   │   ├── blog/[slug]/page.tsx          # Blog post detail
 │   │   ├── cart/page.tsx                 # Shopping cart
 │   │   ├── category/[slug]/page.tsx      # Category products
-│   │   ├── checkout/page.tsx             # Checkout form
+│   │   ├── checkout/page.tsx             # Checkout form (Stripe + PayPal)
 │   │   ├── login/page.tsx                # Login page
 │   │   ├── product/[slug]/page.tsx       # Product detail
 │   │   ├── shop/page.tsx                 # All products
@@ -248,6 +282,7 @@ printnest/
 │   │   ├── thank-you/page.tsx            # Order confirmation
 │   │   ├── wishlist/page.tsx             # Wishlist
 │   │   ├── layout.tsx                    # Root layout
+│   │   ├── loading.tsx                   # Global loading state
 │   │   ├── page.tsx                      # Home page
 │   │   └── globals.css
 │   │
@@ -266,7 +301,7 @@ printnest/
 │   │   │   └── Social.tsx
 │   │   ├── admin/                        # Admin UI components
 │   │   │   ├── charts/                   # Chart components (8)
-│   │   │   ├── tables/                   # Data tables (5)
+│   │   │   ├── tables/                   # Data tables (6)
 │   │   │   ├── modals/                   # Modal dialogs (5)
 │   │   │   ├── lists/                    # List components (2)
 │   │   │   ├── layout/                   # Admin layout (1)
@@ -282,6 +317,7 @@ printnest/
 │   │   └── models/                       # Mongoose models
 │   │       ├── User.ts
 │   │       ├── Product.ts
+│   │       ├── Category.ts
 │   │       ├── Order.ts
 │   │       └── Review.ts
 │   │
@@ -295,6 +331,7 @@ printnest/
 │   └── data/                             # Static data files
 │
 ├── public/                               # Static assets
+├── orders.json                           # Local orders snapshot
 ├── .env.local                            # Environment variables
 ├── package.json
 ├── tsconfig.json
@@ -312,6 +349,8 @@ printnest/
 - **MongoDB** database (Atlas or local)
 - **Groq API key** (for AI descriptions)
 - **Gmail** account (for email notifications)
+- **Stripe** account (for card payments)
+- **PayPal** developer account (for PayPal payments)
 
 ### Installation
 
@@ -336,7 +375,8 @@ printnest/
    npm run dev
    ```
 
-5. **Open browser**
+5. **Open in browser**
+
    ```
    http://localhost:3000
    ```
@@ -369,7 +409,20 @@ EMAIL_PASS=your-gmail-app-password
 
 # AI Descriptions (Groq)
 GROQ_API_KEY=your-groq-api-key
+
+# App URL (used in payment redirect URLs)
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Stripe
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
+STRIPE_SECRET_KEY=sk_test_...
+
+# PayPal (Sandbox)
+PAYPAL_CLIENT_ID=your-paypal-client-id
+PAYPAL_SECRET=your-paypal-secret
 ```
+
+> **Required:** `MONGODB_URI` and `JWT_SECRET` — the app will throw on startup if missing.
 
 ### Getting API Keys
 
@@ -378,8 +431,8 @@ GROQ_API_KEY=your-groq-api-key
 | **MongoDB Atlas**      | [cloud.mongodb.com](https://cloud.mongodb.com)                                 |
 | **Groq API**           | [console.groq.com](https://console.groq.com)                                   |
 | **Gmail App Password** | [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) |
-
-> **Note**: `MONGODB_URI` and `JWT_SECRET` are **required** — the app will throw on startup if missing.
+| **Stripe Dashboard**   | [dashboard.stripe.com/apikeys](https://dashboard.stripe.com/apikeys)           |
+| **PayPal Developer**   | [developer.paypal.com/dashboard](https://developer.paypal.com/dashboard)       |
 
 ---
 
@@ -389,32 +442,41 @@ GROQ_API_KEY=your-groq-api-key
 
 | Endpoint           | Method | Description                    |
 | ------------------ | ------ | ------------------------------ |
-| `/api/auth/signup` | POST   | Register new user              |
-| `/api/auth/login`  | POST   | Login and receive JWT cookie   |
-| `/api/auth/me`     | GET    | Get current authenticated user |
-| `/api/auth/logout` | POST   | Clear auth cookie              |
+| `/api/auth/signup` | `POST` | Register new user              |
+| `/api/auth/login`  | `POST` | Login and receive JWT cookie   |
+| `/api/auth/me`     | `GET`  | Get current authenticated user |
+| `/api/auth/logout` | `POST` | Clear auth cookie              |
 
 ### Public Routes
 
 | Endpoint                  | Method | Description                   |
 | ------------------------- | ------ | ----------------------------- |
-| `/api/public/content`     | GET    | All site content from db.json |
-| `/api/public/place-order` | POST   | Submit order + send emails    |
-| `/api/public/orders`      | GET    | Get orders for current user   |
-| `/api/public/reviews`     | GET    | Get product reviews           |
-| `/api/public/reviews`     | POST   | Submit a new review           |
+| `/api/public/content`     | `GET`  | All site content from db.json |
+| `/api/public/place-order` | `POST` | Submit order + send emails    |
+| `/api/public/orders`      | `GET`  | Get orders for current user   |
+| `/api/public/reviews`     | `GET`  | Get product reviews           |
+| `/api/public/reviews`     | `POST` | Submit a new review           |
+
+### Payment Routes
+
+| Endpoint               | Method | Description                                            |
+| ---------------------- | ------ | ------------------------------------------------------ |
+| `/api/stripe/checkout` | `POST` | Create Stripe Checkout Session, returns redirect `url` |
+| `/api/paypal/checkout` | `POST` | Create PayPal order, returns PayPal approval `url`     |
 
 ### Admin Routes (🔒 Admin only)
 
-| Endpoint                    | Method          | Description                     |
-| --------------------------- | --------------- | ------------------------------- |
-| `/api/admin/stats`          | GET             | Dashboard analytics & charts    |
-| `/api/admin/products`       | GET/POST/DELETE | Manage product catalog          |
-| `/api/admin/orders`         | GET/PATCH       | View and update orders          |
-| `/api/admin/users`          | GET             | List all users                  |
-| `/api/admin/users/[id]`     | DELETE/PATCH    | Delete or promote users         |
-| `/api/admin/ai-description` | POST            | Generate AI product description |
-| `/api/upload`               | POST            | Upload product image            |
+| Endpoint                     | Method                    | Description                     |
+| ---------------------------- | ------------------------- | ------------------------------- |
+| `/api/admin/stats`           | `GET`                     | Dashboard analytics & charts    |
+| `/api/admin/products`        | `GET` / `POST` / `DELETE` | Manage product catalog          |
+| `/api/admin/categories`      | `GET` / `POST`            | List or create categories       |
+| `/api/admin/categories/[id]` | `DELETE` / `PATCH`        | Edit or delete a category       |
+| `/api/admin/orders`          | `GET` / `PATCH`           | View and update orders          |
+| `/api/admin/users`           | `GET`                     | List all users                  |
+| `/api/admin/users/[id]`      | `DELETE` / `PATCH`        | Delete or promote users         |
+| `/api/admin/ai-description`  | `POST`                    | Generate AI product description |
+| `/api/upload`                | `POST`                    | Upload product image            |
 
 ---
 
@@ -438,6 +500,14 @@ The app uses **MongoDB** with Mongoose. Connection is cached globally for server
 }
 ```
 
+#### Category
+
+```typescript
+{
+  (name, slug, image, createdAt, updatedAt);
+}
+```
+
 #### Order
 
 ```typescript
@@ -452,30 +522,26 @@ The app uses **MongoDB** with Mongoose. Connection is cached globally for server
 }
 ```
 
-### Admin Promotion
-
-The user matching `EMAIL_USER` env var is automatically granted admin on each DB connection.
+> The user matching the `EMAIL_USER` env var is automatically granted admin on each DB connection.
 
 ---
 
 ## 🏪 Redux Store
 
-### Slices
-
-#### Cart (`CartSlice.tsx`)
+### Cart (`CartSlice.tsx`)
 
 ```typescript
 // State
 { cartItems: CartItem[], totalQuantity: number, totalAmount: number }
 
 // Actions
-addToCart(item)         // Add or increment
+addToCart(item)         // Add or increment quantity
 removeFromCart(id)      // Decrement by 1
 deleteItem(id)          // Remove entirely
 initializeCart(state)   // Restore from localStorage
 ```
 
-#### Wishlist (`WishListSlice.tsx`)
+### Wishlist (`WishListSlice.tsx`)
 
 ```typescript
 // State
@@ -485,7 +551,7 @@ initializeCart(state)   // Restore from localStorage
 toggleWishlist(item)    // Add or remove
 ```
 
-#### Auth (`AuthSlice.tsx`)
+### Auth (`AuthSlice.tsx`)
 
 ```typescript
 // State
@@ -500,7 +566,7 @@ logout()
 
 ## 🛠️ Admin Panel
 
-Access the admin panel at `/admin/dashboard` (requires admin account).
+Access at `/admin/dashboard` (requires admin account).
 
 ### Dashboard Analytics
 
@@ -514,10 +580,16 @@ Access the admin panel at `/admin/dashboard` (requires admin account).
 
 ### Product Management
 
-- Add products with title, price, image, badge
-- **AI description generator** — click to auto-generate from title using Groq
+- Add products with title, price, image, and badge
+- **AI description generator** — auto-generate from title using Groq
 - Edit and delete existing products
 - Image upload support
+
+### Category Management
+
+- Create, edit, and delete product categories
+- Each category has a `name`, `slug`, and optional `image`
+- Categories are stored in MongoDB and used on the shop/category pages
 
 ### User & Order Management
 
@@ -532,27 +604,27 @@ Access the admin panel at `/admin/dashboard` (requires admin account).
 
 ### Public Pages
 
-| Route              | Description                                   |
-| ------------------ | --------------------------------------------- |
-| `/`                | Home (Hero, Products, Categories, Blog, etc.) |
-| `/shop`            | All products grid                             |
-| `/product/[slug]`  | Product detail with reviews                   |
-| `/category/[slug]` | Category-filtered products                    |
-| `/blog/[slug]`     | Blog post                                     |
-| `/cart`            | Shopping cart                                 |
-| `/wishlist`        | Saved products                                |
-| `/login`           | Login                                         |
-| `/signup`          | Registration                                  |
-| `/thank-you`       | Order confirmation                            |
+| Route              | Description                                          |
+| ------------------ | ---------------------------------------------------- |
+| `/`                | Home (Hero, Products, Categories, Blog, etc.)        |
+| `/shop`            | All products grid                                    |
+| `/product/[slug]`  | Product detail with reviews                          |
+| `/category/[slug]` | Category-filtered products                           |
+| `/blog/[slug]`     | Blog post                                            |
+| `/cart`            | Shopping cart                                        |
+| `/wishlist`        | Saved products                                       |
+| `/login`           | Login                                                |
+| `/signup`          | Registration                                         |
+| `/thank-you`       | Order confirmation (Stripe + PayPal redirect target) |
 
 ### Protected Pages
 
-| Route       | Description                        |
-| ----------- | ---------------------------------- |
-| `/account`  | User dashboard + order history     |
-| `/checkout` | Checkout (login prompt for guests) |
+| Route       | Description                                     |
+| ----------- | ----------------------------------------------- |
+| `/account`  | User dashboard + order history                  |
+| `/checkout` | Checkout with Stripe and PayPal payment options |
 
-### Admin Pages (Admin only)
+### Admin Pages
 
 | Route              | Description             |
 | ------------------ | ----------------------- |
@@ -575,8 +647,8 @@ Access the admin panel at `/admin/dashboard` (requires admin account).
 
 1. Push code to GitHub
 2. Import project on [vercel.com](https://vercel.com)
-3. Add all environment variables in the Vercel dashboard
-4. Deploy — Next.js detected automatically
+3. Add **all** environment variables in the Vercel dashboard (including Stripe and PayPal keys)
+4. Deploy — Next.js is detected automatically
 
 > ⚠️ Vercel's filesystem is ephemeral. All data **must** be stored in MongoDB.
 
@@ -595,8 +667,8 @@ npm start
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/my-feature`)
-3. Commit changes (`git commit -m 'feat: add my feature'`)
-4. Push branch (`git push origin feature/my-feature`)
+3. Commit your changes (`git commit -m 'feat: add my feature'`)
+4. Push to the branch (`git push origin feature/my-feature`)
 5. Open a Pull Request
 
 ---
@@ -607,4 +679,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-**Made with ❤️ for the printing community** 🖨️✨
+<p align="center"><strong>Made with ❤️ for the printing community</strong> 🖨️✨</p>
