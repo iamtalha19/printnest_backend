@@ -1,4 +1,4 @@
-# 🖨️ PrintNest — Modern Print-on-Demand E-Commerce Store
+﻿# 🖨️ PrintNest — Modern Print-on-Demand E-Commerce Store
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black?logo=next.js)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19.2.3-blue?logo=react)](https://reactjs.org)
@@ -608,6 +608,3 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 **Made with ❤️ for the printing community** 🖨️✨
-#   P r i n t - - N e s t 
- 
- 
